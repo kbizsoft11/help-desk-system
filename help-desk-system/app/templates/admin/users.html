@@ -110,7 +110,7 @@
             {{ page_num }}
         </span>
         {% else %}
-        <a href="{{ url_for('admin_users', page=page_num) }}"
+        <a href="{{ url_for('admin_users', page=page_num, search = search_term) }}"
             class="px-4 py-2 bg-white text-black rounded hover:bg-blue-500 hover:text-white shadow-md transition">
             {{ page_num }}
         </a>
