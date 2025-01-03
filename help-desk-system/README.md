@@ -22,7 +22,27 @@ Follow these steps to set up and run the project on your local machine.
 1. **Clone the Repository**
    Open a terminal or command prompt and run:
    ```bash
-   git clone https://github.com/kbizsoft11/help-desk-system/tree/main
+   git clone https://github.com/kbizsoft11/help-desk-system
    cd help-desk-system
    pip install -r requirements.txt
    python run.py
+   
+## User and Admin Access
+
+#### User Side:
+1. Open your web browser and navigate to:
+   http://127.0.0.1:5000
+
+  **User Login Details:**
+- **Email**: qmills@example.com
+- **Password**: 12345678
+
+---
+
+#### Admin Side:
+1. To access the admin panel, navigate to:
+   http://127.0.0.1:5000/admin
+
+  **Admin Login Details:**
+- **Email**: admin@gmail.com
+- **Password**: 12345678
