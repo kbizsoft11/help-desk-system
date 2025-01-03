@@ -22,7 +22,7 @@ Follow these steps to set up and run the project on your local machine.
 1. **Clone the Repository**
    Open a terminal or command prompt and run:
    ```bash
-   git clone https://github.com/kbizsoft11/help-desk-system/tree/master
+   git clone https://github.com/kbizsoft11/help-desk-system/tree/main
    cd help-desk-system
    pip install -r requirements.txt
    python run.py
