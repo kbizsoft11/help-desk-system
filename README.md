@@ -26,5 +26,23 @@ Follow these steps to set up and run the project on your local machine.
    cd help-desk-system
    pip install -r requirements.txt
    python run.py
-   Open your web browser and navigate to
+   
+## User and Admin Access
+
+#### User Side:
+1. Open your web browser and navigate to:
    http://127.0.0.1:5000
+
+  **User Login Details:**
+- **Email**: qmills@example.com
+- **Password**: 12345678
+
+---
+
+#### Admin Side:
+1. To access the admin panel, navigate to:
+   http://127.0.0.1:5000/admin
+
+  **Admin Login Details:**
+- **Email**: admin@gmail.com
+- **Password**: 12345678
