@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Tickets</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/682/682055.png">
+    <script src="{{ url_for('static', filename='js/tailwind.js') }}"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Include Header -->
+    {% include "admin/header.html" %}
+
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center mt-10">Tickets List</h1>
+
+    <!-- Include flash messages -->
+    {% include "flash_messages.html" %}
+
+    <!-- Table to display users -->
+    <div class="overflow-x-auto shadow-md sm:rounded-lg w-full max-w-4xl mx-auto">
+
+        <div class="w-full max-w-4xl mx-auto flex py-3 px-4 items-center justify-end gap-3 bg-white">
+            <!-- <div class="invisible">
+                {% if tickets %}
+                <form id="delete_all_users" action="/delete_all_ticket" method="post"
+                    class="flex justify-center items-center shadow-md">
+                    <button class="bg-red-500 px-8 py-2 rounded-md text-white text-md hover:bg-red-600"
+                        type="submit">Remove All</button>
+                </form>
+                {% else %}
+                {% endif %}
+            </div> -->
+
+            <div class="flex items-center justify-end gap-3">
+                <form action="/admin/tickets" method="get" class="flex justify-center items-center shadow-md">
+                    <a href="/admin/tickets"
+                        class="bg-red-500 flex justify-center items-center rounded-l-md w-10 h-10 text-white text-lg hover:bg-red-600"
+                        type="submit"><ion-icon name="reload-outline"></ion-icon></a>
+                    
+                    <input type="text"
+                        class="leading-none h-10 text-sm rounded-none w-40 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        name="search" value="{{ search_term }}" placeholder="Search..">
+                    <button class="bg-blue-500 rounded-r-md w-10 h-10 text-white text-lg hover:bg-blue-600"
+                        type="submit"><ion-icon name="search-outline"></ion-icon></button>
+                </form>
+
+                <!-- <div>
+                    <select name="status" id="status-dropdown-filter"
+                        class="border text-sm cursor-pointer border-gray-300 rounded px-3 py-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="all">ALL</option>
+                        <option value="0">SUCCESS</option>
+                        <option value="1">PENDING</option>
+                        <option value="2">REJECTED</option>
+                    </select>
+                </div> -->
+            </div>
+        </div>
+        <table class="w-full text-sm text-left text-gray-500 bg-white">
+            <thead class="text-xs text-center text-gray-700 uppercase bg-gray-200">
+                <tr>
+                    <!-- <th scope="col" class="px-6 py-3">ID</th> -->
+                    <th scope="col" class="px-6 py-3">User</th>
+                    <th scope="col" class="px-6 py-3">Title</th>
+                    <th scope="col" class="px-6 py-3 w-52">Description</th>
+                    <th scope="col" class="px-6 py-3">Date</th>
+                    <th scope="col" class="px-6 py-3">Status</th>
+                    <th scope="col" class="px-6 py-3">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if tickets %}
+                {% for ticket in tickets %}
+                <tr class="border-b hover:bg-gray-100 text-center">
+                    <!-- <td class="px-6 py-4 text-gray-800">{{ ticket.id }}</td> -->
+                    <td class="px-6 py-4 text-gray-800">
+                        <div class="flex flex-col item-center">
+                            <span>{{ ticket.username }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-800">{{ ticket.title }}</td>
+                    <td class="px-6 py-4 text-gray-800">{{ ticket.description }}</td>
+                    <td class="px-6 py-4 text-gray-800">{{ ticket.created_at_formatted }}</td>
+                    <td class="px-6 py-4 text-gray-800">
+                        <select data-id="{{ ticket.id }}" name="status" id="status-dropdown"
+                            class="border text-sm cursor-pointer border-gray-300 rounded px-3 py-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="0" {% if ticket.status==0 %}selected{% endif %}>Success</option>
+                            <option value="1" {% if ticket.status==1 %}selected{% endif %}>Pending</option>
+                            <option value="2" {% if ticket.status==2 %}selected{% endif %}>Rejected</option>
+                        </select>
+                    </td>
+
+                    <td class="">
+                        <div class="flex justify-center items-center gap-3">
+                            <form method="POST" class="admin-delete-ticket"
+                                action="{{ url_for('admin_delete_ticket') }}">
+                                <input type="hidden" name="id" value={{ticket.id}}>
+                                <button class="bg-red-500 text-white w-10 h-10 text-lg rounded" type="submit"><ion-icon
+                                        name="trash-outline"></ion-icon></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="6" class="px-6 py-4 text-center text-gray-500">No tickets found</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="max-w-4xl mx-auto mt-3">
+        <h1 class="text-center text-sm font-normal tracking-wide">Total tickets: {{ticket_counts}}</h1>
+    </div>
+
+    <div class="flex items-center justify-center gap-3 mt-3 mb-10 max-w-4xl mx-auto">
+        <!-- Pagination -->
+        {% for page_num in pagination.iter_pages() %}
+        {% if page_num %}
+        {% if page_num == pagination.page %}
+        <!-- Active Page -->
+        <span class="px-4 py-2 bg-blue-500 text-white rounded cursor-not-allowed">
+            {{ page_num }}
+        </span>
+        {% else %}
+        <a href="{{ url_for('admin_tickets', page=page_num, search = search_term) }}"
+            class="px-4 py-2 bg-white text-black rounded hover:bg-blue-500 hover:text-white shadow-md transition">
+            {{ page_num }}
+        </a>
+        {% endif %}
+        {% else %}
+        <!-- Ellipsis (e.g., "..." for skipped pages) -->
+        <span class="px-4 py-2 text-gray-500">
+            ...
+        </span>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

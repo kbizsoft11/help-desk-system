@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/682/682055.png">
+    <script src="{{ url_for('static', filename='js/tailwind.js') }}"></script>
+</head>
+
+<body>
+    <!-- Include Header -->
+    {% include "header.html" %}
+    
+    <!-- Include flash messages -->
+    {% include "flash_messages.html" %}
+
+</body>
+
+</html>

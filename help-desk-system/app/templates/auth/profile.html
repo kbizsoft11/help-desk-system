@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/682/682055.png">
+    <script src="{{ url_for('static', filename='js/tailwind.js') }}"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900 font-sans ">
+
+    <!-- Include Header -->
+    {% include "header.html" %}
+
+    <!-- Include flash messages -->
+    {% include "flash_messages.html" %}
+
+    <div class="text-center mt-10">
+        <h1>Welcome, {{ user.username }}</h1>
+        <p>Email: {{ user.email }}</p>
+
+    </div>
+
+
+
+</body>
+
+</html>

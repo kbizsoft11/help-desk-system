@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin login</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/17003/17003310.png">
+    <script src="{{ url_for('static', filename='js/tailwind.js') }}"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900 font-sans flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold text-center mb-8">Dashboard Login</h1>
+
+        <!-- Include flash messages -->
+        {% include "admin/flash_messages.html" %}
+
+
+        <!-- Add User Form -->
+        <form action="admin/auth/login" method="POST">
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-semibold text-gray-700">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email" required
+                    class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-sm font-semibold text-gray-700">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" required
+                    class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+
+            <button type="submit"
+                class="w-full py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400">
+                Login
+            </button>
+        </form>
+    </div>
+
+</body>
+
+</html>
