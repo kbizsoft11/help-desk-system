@@ -26,3 +26,5 @@ Follow these steps to set up and run the project on your local machine.
    cd help-desk-system
    pip install -r requirements.txt
    python run.py
+   Open your web browser and navigate to
+   http://127.0.0.1:5000
